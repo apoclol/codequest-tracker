@@ -12,7 +12,7 @@ body {
 }
 
 .container {
-    max-width: 800px;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 20px;
 }
@@ -43,6 +43,90 @@ header h1 {
     text-align: center;
 }
 
+.level-card {
+    grid-column: span 2;
+    position: relative;
+    overflow: hidden;
+}
+
+.level-display {
+    position: relative;
+    display: inline-block;
+}
+
+.level-text {
+    font-size: 2rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.level-sparkle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    opacity: 0;
+}
+
+.level-sparkle.active {
+    opacity: 1;
+    animation: sparkle 2s infinite;
+}
+
+@keyframes sparkle {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+.level-sparkle.active::before,
+.level-sparkle.active::after {
+    content: '✨';
+    position: absolute;
+    animation: float 3s ease-in-out infinite;
+}
+
+.level-sparkle.active::before {
+    top: -10px;
+    left: -20px;
+    animation-delay: 0s;
+}
+
+.level-sparkle.active::after {
+    bottom: -10px;
+    right: -20px;
+    animation-delay: 1.5s;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Level colors */
+.level-beginner { color: #6c757d; }
+.level-novice { color: #28a745; }
+.level-intermediate { color: #007bff; }
+.level-advanced { color: #fd7e14; }
+.level-expert { color: #6f42c1; }
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: #e9ecef;
+    border-radius: 4px;
+    margin: 10px 0 5px 0;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+
 .stat-card h3 {
     color: #666;
     font-size: 0.9rem;
@@ -56,7 +140,7 @@ header h1 {
     color: #667eea;
 }
 
-.add-challenge, .challenges-list {
+.add-challenge, .challenges-list, .completed-challenges, .achievements-section {
     background: white;
     padding: 25px;
     border-radius: 10px;
@@ -64,7 +148,7 @@ header h1 {
     margin-bottom: 20px;
 }
 
-.add-challenge h2, .challenges-list h2 {
+.add-challenge h2, .challenges-list h2, .completed-challenges h2, .achievements-section h2 {
     margin-bottom: 20px;
     color: #333;
 }
@@ -88,7 +172,7 @@ input {
 }
 
 select {
-    min-width: 120px;
+    min-width: 140px;
 }
 
 button {
@@ -110,27 +194,168 @@ button:hover {
     border-radius: 8px;
     margin-bottom: 10px;
     border-left: 4px solid #667eea;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.challenge-info {
+    flex: 1;
 }
 
 .challenge-meta {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 10px;
     margin-top: 5px;
     font-size: 0.9rem;
     color: #666;
 }
 
-.difficulty-easy { border-left-color: #28a745; }
-.difficulty-medium { border-left-color: #ffc107; }
-.difficulty-hard { border-left-color: #dc3545; }
+.difficulty-badge {
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: white;
+}
 
-@media (max-width: 600px) {
+.difficulty-easy { 
+    border-left-color: #28a745;
+}
+
+.difficulty-easy .difficulty-badge {
+    background: #28a745;
+}
+
+.difficulty-medium { 
+    border-left-color: #ffc107;
+}
+
+.difficulty-medium .difficulty-badge {
+    background: #ffc107;
+    color: #000;
+}
+
+.difficulty-hard { 
+    border-left-color: #dc3545;
+}
+
+.difficulty-hard .difficulty-badge {
+    background: #dc3545;
+}
+
+.complete-btn {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.complete-btn:hover {
+    background: #218838;
+    transform: translateY(-2px);
+}
+
+.complete-btn.completing {
+    background: #ffc107;
+    animation: pulse 0.5s;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+}
+
+.achievement-item {
+    padding: 15px;
+    border-radius: 8px;
+    border: 2px solid #e9ecef;
+    transition: all 0.3s;
+}
+
+.achievement-item.unlocked {
+    background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+    border-color: #ffc107;
+    box-shadow: 0 4px 8px rgba(255, 193, 7, 0.3);
+}
+
+.achievement-item.locked {
+    background: #f8f9fa;
+    opacity: 0.6;
+}
+
+.achievement-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.achievement-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    transform: translateX(400px);
+    transition: transform 0.5s ease;
+    z-index: 1000;
+    max-width: 300px;
+}
+
+.achievement-notification.show {
+    transform: translateX(0);
+}
+
+.achievement-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.achievement-content .achievement-icon {
+    font-size: 2.5rem;
+}
+
+.achievement-text strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+@media (max-width: 768px) {
+    .level-card {
+        grid-column: span 1;
+    }
+    
     form {
         flex-direction: column;
     }
     
     input, select, button {
         width: 100%;
+    }
+    
+    .challenge-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .achievements-grid {
+        grid-template-columns: 1fr;
     }
 }
