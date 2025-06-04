@@ -36,9 +36,15 @@ header h1 {
 }
 
 .level-card {
-    grid-column: span 2;
-    position: relative;
-    overflow: hidden;
+    background: white;
+    border: 3px solid #e9ecef;
+    transition: border-color 0.3s ease;
+}
+
+.level-card.level-novice { border-color: #28a745; }
+.level-card.level-intermediate { border-color: #007bff; }
+.level-card.level-advanced { border-color: #fd7e14; }
+.level-card.level-expert { border-color: #6f42c1; }
 }
 
 @media (max-width: 768px) {
