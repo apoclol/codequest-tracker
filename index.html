@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeQuest Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 CodeQuest Tracker</h1>
+            <p>Track your daily coding challenges and level up!</p>
+        </header>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Total Challenges</h3>
+                <span id="totalChallenges">0</span>
+            </div>
+            <div class="stat-card">
+                <h3>Current Streak</h3>
+                <span id="currentStreak">0</span>
+            </div>
+            <div class="stat-card">
+                <h3>Level</h3>
+                <span id="currentLevel">Beginner</span>
+            </div>
+        </div>
+
+        <div class="add-challenge">
+            <h2>Add Today's Challenge</h2>
+            <form id="challengeForm">
+                <input type="text" id="challengeName" placeholder="Challenge name" required>
+                <select id="difficulty">
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                </select>
+                <button type="submit">Complete Challenge!</button>
+            </form>
+        </div>
+
+        <div class="challenges-list">
+            <h2>Recent Challenges</h2>
+            <div id="challengesList"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
