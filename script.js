@@ -52,29 +52,32 @@ class CodeQuestTracker {
     }
 
     addChallenge() {
-        const name = document.getElementById('challengeName').value;
-        const difficulty = document.getElementById('difficulty').value;
-        
-        if (!name.trim()) return;
+    const name = document.getElementById('challengeName').value;
+    const difficulty = document.getElementById('difficulty').value;
+    
+    if (!name.trim()) return;
 
-        const challenge = {
-            id: Date.now(),
-            name: name.trim(),
-            difficulty: difficulty,
-            points: this.getPointsForDifficulty(difficulty),
-            dateCreated: new Date().toISOString(),
-            status: 'active'
-        };
+    const challenge = {
+        id: Date.now(),
+        name: name.trim(),
+        difficulty: difficulty,
+        points: this.getPointsForDifficulty(difficulty),
+        dateCreated: new Date().toISOString(),
+        status: 'active'
+    };
 
-        this.activeChallenges.push(challenge);
-        this.saveData();
-        this.renderActiveChallenges();
-        
-        // Clear form
-        document.getElementById('challengeName').value = '';
-        
-        // Show success animation
-        this.showAddMessage();
+    this.activeChallenges.push(challenge);
+    this.saveData();
+    
+    // Update displays immediately
+    this.renderActiveChallenges();
+    this.updateStats();
+    
+    // Clear form
+    document.getElementById('challengeName').value = '';
+    
+    // Show success animation
+    this.showAddMessage();
     }
 
     completeChallenge(challengeId) {
