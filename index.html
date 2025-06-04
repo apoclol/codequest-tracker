@@ -15,35 +15,67 @@
 
         <div class="stats-grid">
             <div class="stat-card">
-                <h3>Total Challenges</h3>
-                <span id="totalChallenges">0</span>
+                <h3>Total Points</h3>
+                <span id="totalPoints">0</span>
             </div>
             <div class="stat-card">
-                <h3>Current Streak</h3>
-                <span id="currentStreak">0</span>
+                <h3>Today's Challenges</h3>
+                <span id="todayChallenges">0</span>
             </div>
             <div class="stat-card">
+                <h3>This Week</h3>
+                <span id="weekChallenges">0</span>
+            </div>
+            <div class="stat-card level-card">
                 <h3>Level</h3>
-                <span id="currentLevel">Beginner</span>
+                <div class="level-display">
+                    <span id="currentLevel" class="level-text">Beginner</span>
+                    <div class="level-sparkle" id="levelSparkle"></div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <small id="progressText">0/50 to next level</small>
             </div>
         </div>
 
         <div class="add-challenge">
-            <h2>Add Today's Challenge</h2>
+            <h2>Add New Challenge</h2>
             <form id="challengeForm">
                 <input type="text" id="challengeName" placeholder="Challenge name" required>
                 <select id="difficulty">
-                    <option value="easy">Easy</option>
-                    <option value="medium">Medium</option>
-                    <option value="hard">Hard</option>
+                    <option value="easy">Easy (5 pts)</option>
+                    <option value="medium">Medium (10 pts)</option>
+                    <option value="hard">Hard (20 pts)</option>
                 </select>
-                <button type="submit">Complete Challenge!</button>
+                <button type="submit">Add Challenge</button>
             </form>
         </div>
 
         <div class="challenges-list">
-            <h2>Recent Challenges</h2>
-            <div id="challengesList"></div>
+            <h2>Active Challenges</h2>
+            <div id="activeChallengesList"></div>
+        </div>
+
+        <div class="completed-challenges">
+            <h2>Recent Completions</h2>
+            <div id="completedChallengesList"></div>
+        </div>
+
+        <div class="achievements-section">
+            <h2>🏆 Achievements</h2>
+            <div id="achievementsList"></div>
+        </div>
+    </div>
+
+    <!-- Achievement notification -->
+    <div id="achievementNotification" class="achievement-notification">
+        <div class="achievement-content">
+            <span class="achievement-icon">🏆</span>
+            <div class="achievement-text">
+                <strong id="achievementTitle"></strong>
+                <p id="achievementDescription"></p>
+            </div>
         </div>
     </div>
 
