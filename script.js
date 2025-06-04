@@ -237,8 +237,9 @@ class CodeQuestTracker {
     const levelElement = document.getElementById('currentLevel');
     levelElement.textContent = currentLevel.name;
     levelElement.className = `level-text level-${currentLevel.color}`;
-    levelElement.textContent = currentLevel.name;
-    levelElement.className = `level-text level-${currentLevel.color}`;
+    
+    // Update the level card border color
+    document.querySelector('.level-card').className = `stat-card level-card level-${currentLevel.color}`;
     
     // Sparkle effect for advanced levels
     const sparkleElement = document.getElementById('levelSparkle');
@@ -247,19 +248,19 @@ class CodeQuestTracker {
     } else {
         sparkleElement.classList.remove('active');
     }
-        
-        // Progress bar
-        if (nextLevel) {
-            const progress = (this.stats.totalPoints - currentLevel.points) / (nextLevel.points - currentLevel.points);
-            const progressPercent = Math.min(progress * 100, 100);
-            document.getElementById('progressFill').style.width = `${progressPercent}%`;
-            document.getElementById('progressText').textContent = 
-                `${this.stats.totalPoints - currentLevel.points}/${nextLevel.points - currentLevel.points} to ${nextLevel.name}`;
-        } else {
-            document.getElementById('progressFill').style.width = '100%';
-            document.getElementById('progressText').textContent = 'Max Level Reached!';
-        }
+    
+    // Progress bar
+    if (nextLevel) {
+        const progress = (this.stats.totalPoints - currentLevel.points) / (nextLevel.points - currentLevel.points);
+        const progressPercent = Math.min(progress * 100, 100);
+        document.getElementById('progressFill').style.width = `${progressPercent}%`;
+        document.getElementById('progressText').textContent = 
+            `${this.stats.totalPoints - currentLevel.points}/${nextLevel.points - currentLevel.points} to ${nextLevel.name}`;
+    } else {
+        document.getElementById('progressFill').style.width = '100%';
+        document.getElementById('progressText').textContent = 'Max Level Reached!';
     }
+}
 
     renderActiveChallenges() {
         const container = document.getElementById('activeChallengesList');
@@ -450,9 +451,6 @@ document.head.appendChild(style);
 document.addEventListener('DOMContentLoaded', () => {
     window.tracker = new CodeQuestTracker();
 });
-
-// Update the card border
-document.querySelector('.level-card').className = `stat-card level-card level-${currentLevel.color}`;
 
 // Add some fun console messages
 console.log('🚀 CodeQuest Tracker 2.0 loaded!');
