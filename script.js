@@ -122,9 +122,15 @@ class CodeQuestTracker {
 
     checkLevelUp() {
         const currentLevel = this.getCurrentLevel();
-        if (currentLevel.name !== this.stats.level) {
+        const previousLevel = this.stats.level;
+    
+        if (currentLevel.name !== previousLevel) {
             this.stats.level = currentLevel.name;
-            this.showLevelUpNotification(currentLevel);
+        
+        // Only show notification if it's not the initial "Beginner" level
+            if (previousLevel !== 'Beginner' || currentLevel.name !== 'Beginner') {
+                this.showLevelUpNotification(currentLevel);
+            }
         }
     }
 
