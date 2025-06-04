@@ -208,39 +208,53 @@ class CodeQuestTracker {
     }
 
     updateStats() {
-        // Update basic stats
-        document.getElementById('totalPoints').textContent = this.stats.totalPoints;
-        
-        // Today's challenges
-        const today = new Date().toDateString();
-        const todaysCount = this.completedChallenges.filter(c => 
-            new Date(c.dateCompleted).toDateString() === today
-        ).length;
-        document.getElementById('todayChallenges').textContent = todaysCount;
-        
-        // This week's challenges
-        const oneWeekAgo = new Date();
-        oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-        const weekCount = this.completedChallenges.filter(c => 
-            new Date(c.dateCompleted) >= oneWeekAgo
-        ).length;
-        document.getElementById('weekChallenges').textContent = weekCount;
-        
-        // Level display
-        const currentLevel = this.getCurrentLevel();
-        const nextLevel = this.getNextLevel();
-        
-        const levelElement = document.getElementById('currentLevel');
-        levelElement.textContent = currentLevel.name;
-        levelElement.className = `level-text level-${currentLevel.color}`;
-        
-        // Sparkle effect for advanced levels
-        const sparkleElement = document.getElementById('levelSparkle');
-        if (currentLevel.name === 'Advanced' || currentLevel.name === 'Expert') {
-            sparkleElement.classList.add('active');
-        } else {
-            sparkleElement.classList.remove('active');
-        }
+    // Update basic stats
+    document.getElementById('totalPoints').textContent = this.stats.totalPoints;
+    document.getElementById('totalChallenges').textContent = this.stats.totalChallenges;
+    
+    // Today's challenges
+    const today = new Date().toDateString();
+    const todaysCount = this.completedChallenges.filter(c => 
+        new Date(c.dateCompleted).toDateString() === today
+    ).length;
+    document.getElementById('todayChallenges').textContent = todaysCount;
+    
+    // This week's challenges
+    const oneWeekAgo = new Date();
+    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+    const weekCount = this.completedChallenges.filter(c => 
+        new Date(c.dateCompleted) >= oneWeekAgo
+    ).length;
+    document.getElementById('weekChallenges').textContent = weekCount;
+    
+    // Level display
+    const currentLevel = this.getCurrentLevel();
+    const nextLevel = this.getNextLevel();
+    
+    const levelElement = document.getElementById('currentLevel');
+    levelElement.textContent = currentLevel.name;
+    levelElement.className = `level-text level-${currentLevel.color}`;
+    
+    // Sparkle effect for advanced levels
+    const sparkleElement = document.getElementById('levelSparkle');
+    if (currentLevel.name === 'Advanced' || currentLevel.name === 'Expert') {
+        sparkleElement.classList.add('active');
+    } else {
+        sparkleElement.classList.remove('active');
+    }
+    
+    // Progress bar
+    if (nextLevel) {
+        const progress = (this.stats.totalPoints - currentLevel.points) / (nextLevel.points - currentLevel.points);
+        const progressPercent = Math.min(progress * 100, 100);
+        document.getElementById('progressFill').style.width = `${progressPercent}%`;
+        document.getElementById('progressText').textContent = 
+            `${this.stats.totalPoints - currentLevel.points}/${nextLevel.points - currentLevel.points} to ${nextLevel.name}`;
+    } else {
+        document.getElementById('progressFill').style.width = '100%';
+        document.getElementById('progressText').textContent = 'Max Level Reached!';
+    }
+}
         
         // Progress bar
         if (nextLevel) {
