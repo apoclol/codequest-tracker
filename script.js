@@ -237,6 +237,8 @@ class CodeQuestTracker {
     const levelElement = document.getElementById('currentLevel');
     levelElement.textContent = currentLevel.name;
     levelElement.className = `level-text level-${currentLevel.color}`;
+    levelElement.textContent = currentLevel.name;
+    levelElement.className = `level-text level-${currentLevel.color}`;
     
     // Sparkle effect for advanced levels
     const sparkleElement = document.getElementById('levelSparkle');
@@ -448,6 +450,9 @@ document.head.appendChild(style);
 document.addEventListener('DOMContentLoaded', () => {
     window.tracker = new CodeQuestTracker();
 });
+
+// Update the card border
+document.querySelector('.level-card').className = `stat-card level-card level-${currentLevel.color}`;
 
 // Add some fun console messages
 console.log('🚀 CodeQuest Tracker 2.0 loaded!');
