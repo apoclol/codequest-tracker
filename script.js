@@ -245,19 +245,6 @@ class CodeQuestTracker {
     } else {
         sparkleElement.classList.remove('active');
     }
-    
-    // Progress bar
-    if (nextLevel) {
-        const progress = (this.stats.totalPoints - currentLevel.points) / (nextLevel.points - currentLevel.points);
-        const progressPercent = Math.min(progress * 100, 100);
-        document.getElementById('progressFill').style.width = `${progressPercent}%`;
-        document.getElementById('progressText').textContent = 
-            `${this.stats.totalPoints - currentLevel.points}/${nextLevel.points - currentLevel.points} to ${nextLevel.name}`;
-    } else {
-        document.getElementById('progressFill').style.width = '100%';
-        document.getElementById('progressText').textContent = 'Max Level Reached!';
-    }
-}
         
         // Progress bar
         if (nextLevel) {
